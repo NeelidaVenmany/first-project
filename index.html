@@ -12,7 +12,33 @@
         <input type="text" id="password" placeholder="Enter your password">
         <div id="strength"></div>
     </div>
-    <button onclick="checkPassword()">Check Strength</button>
-    <script src="script.js"></script>  
+    
+    <script>
+document.getElementById("password").addEventListener("input", function() {
+    let password = this.value;
+    let score = 0;
+
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[!@#$%^&*()]/.test(password)) score++;
+
+    let result = document.getElementById("strength");
+
+    if (password.length === 0) {
+        result.textContent = "";
+    } else if (score === 5) {
+        result.textContent = "Strong Password! 💪";
+        result.style.color = "green";
+    } else if (score >= 3) {
+        result.textContent = "Medium Password 🙂";
+        result.style.color = "orange";
+    } else {
+        result.textContent = "Weak Password! ❌";
+        result.style.color = "red";
+    }
+});
+</script> 
 </body>
 </html> 
